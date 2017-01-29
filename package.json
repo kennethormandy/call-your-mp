@@ -1,0 +1,53 @@
+{
+  "name": "call-your-mp",
+  "version": "0.1.0",
+  "description": "",
+  "homepage": "",
+  "repository": "https://github.com/kennethormandy/call-your-mp",
+  "author": "Kenneth Ormandy <hello@kennethormandy.com> (http://kennethormandy.com)",
+  "private": true,
+  "contributors": [],
+  "dependencies": {
+    "ampersand-app": "2.0.0",
+    "ampersand-router": "4.0.0",
+    "basscss-sass": "4.0.0",
+    "es6-shim": "0.35.2",
+    "lodash.filter": "4.6.0",
+    "lodash.throttle": "4.1.1",
+    "normalize.css": "5.0.0",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "represent": "0.2.2",
+    "surge": "0.18.0",
+    "utility-opentype": "0.1.4",
+    "whatwg-fetch": "2.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "6.21.0",
+    "babel-loader": "6.2.10",
+    "babel-preset-es2015": "6.18.0",
+    "babel-preset-react": "6.16.0",
+    "babel-preset-react-hmre": "1.1.1",
+    "css-loader": "0.26.1",
+    "hjs-webpack": "8.4.3",
+    "image-size": "0.5.1",
+    "json-loader": "0.5.4",
+    "node-sass": "4.3.0",
+    "postcss-loader": "1.2.1",
+    "sass-loader": "4.1.1",
+    "style-loader": "0.13.1",
+    "surge": "0.18.0",
+    "webpack": "1.14.0"
+  },
+  "scripts": {
+    "lint": "",
+    "test": "echo \"Error: no test specified.\" && exit 0",
+    "posttest": "npm run lint",
+    "build": "NODE_ENV=production webpack",
+    "build:nofollow": "echo 'User-agent: *\nDisallow: /' > ./build/robots.txt",
+    "start": "NODE_ENV=development hjs-dev-server",
+    "predeploy": "npm run build",
+    "prestage": "npm run build && npm run build:nofollow",
+    "stage": "surge ./build call-your-mp.surge.sh"
+  }
+}

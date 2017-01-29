@@ -1,0 +1,132 @@
+* {
+  box-sizing: border-box;
+  font-synthesis: none;
+}
+
+html {
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // iOS
+  -webkit-tap-highlight-color: transparent;      // Android
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  font-family: $font-family-base;
+  font-size: $h3;
+  line-height: $line-height-4;
+  background-color: $white;
+  color: $black;
+}
+
+@each $prefix in "::-moz-selection", "::selection" {
+  #{ $prefix } {
+    background-color: rgba($black, 0.5);
+    color: $white;
+    text-shadow: 0 0 0 transparent;
+  }
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+.a-underline {
+  color: inherit;
+  border-bottom: 1px solid $darken-3;
+  text-decoration: none;
+  transition: border 0.25s ease-in-out, opacity 0.25s ease-in-out;
+}
+
+a:focus,
+a:hover,
+a:active {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.a-hover-none,
+a.a-hover-none {
+  &:focus,
+  &:hover,
+  &:active {
+    color: inherit;
+    opacity: inherit;
+    border-bottom: inherit;
+    text-decoration: inherit;
+  }
+}
+
+strong, b, header, h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+i, em, address {
+  font-style: normal;
+}
+
+.border-none {
+  &:hover,
+  &:visited,
+  &:active,
+  &:focus {
+    border: none;
+  }
+}
+
+dl, ol, ul {
+  padding-left: 0;
+}
+
+i, em, cite, blockquote {
+  font-style: normal; // No italics
+}
+
+img,
+svg {
+  display: block;
+}
+
+figure {
+  margin: 0;
+  img {
+    width: 100%;
+  }
+}
+
+blockquote {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+hr {
+  display: block;
+  border: 0;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+  text-decoration: none;
+}
+
+textarea,
+input,
+button,
+a {
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 5px rgba($black, 0.5);
+  }
+  &:hover:focus {
+    box-shadow: none;
+  }
+}
+
+// Speak None
+//
+// Accessibility considerations for Basscss.
+//
+// Styleguide: base.speak-none
+.speak-none,
+[aria-hidden="true"] {
+  speak: none;
+}

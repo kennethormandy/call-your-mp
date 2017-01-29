@@ -1,0 +1,20 @@
+{
+  "name": "Call Your MP",
+  "title": "Call Your MP",
+  "description": "description",
+  "url": "http://example.com",
+  "action": "http://example.com",
+  "og": {
+    "title": "Open Graph title",
+    "description": "Open Graph description"
+  },
+  "service": {
+    "analytics": false
+  },
+  "author": {
+    "name": "Author Name",
+    "twitter": "example",
+    "instagram": "example",
+    "url": "http://example.com"
+  }
+}
