@@ -135,7 +135,7 @@ class Index extends React.Component {
         <section className="border p1 sm-p2 md-p3 my3 lg-mxn3">
           <header>
             <h3 className="normal h5 m0 muted">The Honourable { state.repData.name }</h3>
-            <h2 className="lnum tnum zero mt0">{ repPhoneNumber }</h2>
+            <h2 className="lnum tnum zero mt0"><a href={`tel:${repPhoneNumber}`}>{ repPhoneNumber }</a></h2>
           </header>
           <p className="mt0">Hello, my name is { state.yourName } and I live in the the { state.repData.district_name } electoral district. I wanted to let my <Abbr title="Member of Parliament">MP</Abbr> The Honourable { state.repData.name } know how important it is to me that we welcome those fleeing violence and deportation from Trump’s America. Today, if an asylum seeker currently in the <Abbr>US</Abbr> showed up at the Canadian border trying to escape deportation to an unsafe country, Canada would turn them away.</p>
           <p>I support calling on Prime Minister Trudeau and Minister Hussen to immediately rescind the <em className="italic">Safe Third Country Agreement</em> so refugees who originally arrived in the United States can seek refugee status in Canada. Thank you for your time.</p>
