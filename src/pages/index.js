@@ -121,8 +121,6 @@ class Index extends React.Component {
         </form>
 
         <section className="border p1 sm-p2 md-p3 my3">
-          <pre className="bg-black white p2 block"><code>{ state.latitude }, { state.longitude }</code></pre>
-
           <header>
             <h3 className="normal h5 m0 muted">The Honourable { state.repData.name }</h3>
             <h2 className="lnum tnum zero mt0">{ repPhoneNumber }</h2>
