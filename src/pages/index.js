@@ -3,6 +3,12 @@ import _throttle from 'lodash.throttle'
 import _filter from 'lodash.filter'
 import 'whatwg-fetch'
 
+function Abbr (props) {
+  return (
+    <abbr className="caps" {...props}>{props.children}</abbr>
+  )
+}
+
 class Index extends React.Component {
   constructor (props) {
     super(props)
@@ -93,7 +99,10 @@ class Index extends React.Component {
 
     return (
       <div>
-        <h1>Index { data.name }</h1>
+        <header className="mb3">
+        <h1 className="mb0">{ data.title }</h1>
+        <p className="h3 muted mt0 max-width-2">{ data.description }</p>
+        </header>
 
         <form className="flex flex-wrap mxn1">
           <label className="px1 col-12 md-col-6">
@@ -115,38 +124,33 @@ class Index extends React.Component {
             </div>
             <div>
               <button className="btn btn-primary" onClick={this.handleAskForLocation} disabled={ state.locRequested === 'requesting' }>{ buttonText }</button>
-              <p className="h5 muted">Postal Codes are not a completely accurate method of finding your <span className="caps">MP</span>. This website has no analytics installed and your location information is not recorded or transmitted.</p>
+              <aside className="h5 mt2 muted">
+              <p className="m0">Postal Codes are not a completely accurate method of finding your <Abbr>MP</Abbr>.</p>
+              <p className="m0" style={{ textIndent: '1em' }}>This site does not track, store, or use your location data for any purpose other than looking up your <Abbr>MP</Abbr> via the <a href="http://represent.opennorth.ca/">Represent Civic Information <Abbr>API</Abbr></a>.</p>
+              </aside>
             </div>
           </div>
         </form>
 
-        <section className="border p1 sm-p2 md-p3 my3">
+        <section className="border p1 sm-p2 md-p3 my3 lg-mxn3">
           <header>
             <h3 className="normal h5 m0 muted">The Honourable { state.repData.name }</h3>
             <h2 className="lnum tnum zero mt0">{ repPhoneNumber }</h2>
           </header>
-          <p className="mt0">Hello, my name is { state.yourName } and I live in the the { state.repData.district_name } electoral district. I wanted to let my <abbr className="caps" title="Member of Parliment">MP</abbr> The Honourable { state.repData.name } know how important it is to me that we welcome those fleeing violence and deportation from Trump’s America. Today, if an asylum seeker currently in the US showed up at the Canadian border trying to escape deportation to an unsafe country, Canada would turn them away.</p>
+          <p className="mt0">Hello, my name is { state.yourName } and I live in the the { state.repData.district_name } electoral district. I wanted to let my <Abbr title="Member of Parliament">MP</Abbr> The Honourable { state.repData.name } know how important it is to me that we welcome those fleeing violence and deportation from Trump’s America. Today, if an asylum seeker currently in the <Abbr>US</Abbr> showed up at the Canadian border trying to escape deportation to an unsafe country, Canada would turn them away.</p>
           <p>I support calling on Prime Minister Trudeau and Minister Hussen to immediately rescind the <em className="italic">Safe Third Country Agreement</em> so refugees who originally arrived in the United States can seek refugee status in Canada. Thank you for your time.</p>
         </section>
 
-        <p>Calling or leaving a message for your <span className="caps">MP</span> is likely the most effective way to deliver this message based on what I’ve read. You can additionally send it to their email address at:</p>
+        <p>Calling or leaving a message for your <Abbr>MP</Abbr> is likely the most effective way to deliver this message based on what I’ve read. You can additionally send it to their email address at:</p>
 
         <a href={`mailto:${state.repData.email}`}>{state.repData.email}</a>
 
-        <footer>
+        <footer className="clearfix mt4 pt2 border-top">
           <p>You can also:</p>
           <ul>
-            <li>Email this message you your <span className="caps">MP</span></li>
+            <li>Email this message you your <Abbr>MP</Abbr></li>
             <li>Sign the petition</li>
-            <li>The code for this website is Open Source, so you could help improve my script, translate it into Frenc, open an issue about a bug you found, etc. Thanks!</li>
-            <li>Embed this form into your site or article:</li>
           </ul>
-
-          <div>
-            <h2>Credits</h2>
-          </div>
-
-
         </footer>
 
       </div>
