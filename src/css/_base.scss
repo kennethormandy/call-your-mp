@@ -14,8 +14,12 @@ html {
   font-family: $font-family-base;
   font-size: $h3;
   line-height: $line-height-4;
-  background-color: $white;
+  background-color: $button-background-color;
   color: $black;
+}
+
+body {
+  background-color: $white;
 }
 
 @each $prefix in "::-moz-selection", "::selection" {
@@ -130,3 +134,26 @@ a {
 [aria-hidden="true"] {
   speak: none;
 }
+
+// Border thicknesses
+.border-thin { border-width: $border-thin; }
+.border-medium { border-width: $border-medium; }
+.border-thick { border-width: $border-thick; }
+
+// Colors
+.muted { opacity: $muted; }
+.white { color: $white; }
+.black { color: $black; }
+.primary { color: $button-background-color; }
+
+.bg-white { background-color: $white; }
+.bg-black { background-color: $black; }
+.bg-primary { background-color: $button-background-color; }
+
+.border-white { border-color: $white; }
+.border-black { border-color: $black; }
+.border-primary { border-color: $button-background-color; }
+
+.fill-primary { fill: $button-background-color; }
+.fill-white { fill: $white; }
+.fill-black { fill: $black; }
