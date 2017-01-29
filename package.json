@@ -1,7 +1,7 @@
 {
   "name": "call-your-mp",
   "version": "0.1.0",
-  "description": "",
+  "description": "A script for calling and emailing your Member of Parliament in Canada.",
   "homepage": "",
   "repository": "https://github.com/kennethormandy/call-your-mp",
   "author": "Kenneth Ormandy <hello@kennethormandy.com> (http://kennethormandy.com)",
