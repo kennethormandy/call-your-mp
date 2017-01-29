@@ -46,8 +46,9 @@
     "build": "NODE_ENV=production webpack",
     "build:nofollow": "echo 'User-agent: *\nDisallow: /' > ./build/robots.txt",
     "start": "NODE_ENV=development hjs-dev-server",
-    "predeploy": "npm run build",
     "prestage": "npm run build && npm run build:nofollow",
-    "stage": "surge ./build call-your-mp.surge.sh"
+    "stage": "surge ./build staging.call-your-mp.surge.sh",
+    "predeploy": "npm run build",
+    "deploy": "surge ./build call-your-mp.surge.sh"
   }
 }
