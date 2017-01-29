@@ -47,8 +47,8 @@
     "build:nofollow": "echo 'User-agent: *\nDisallow: /' > ./build/robots.txt",
     "start": "NODE_ENV=development hjs-dev-server",
     "prestage": "npm run build && npm run build:nofollow",
-    "stage": "surge ./build staging.call-your-mp.surge.sh",
+    "stage": "surge ./build https://staging.call-your-mp.surge.sh",
     "predeploy": "npm run build",
-    "deploy": "surge ./build call-your-mp.surge.sh"
+    "deploy": "surge ./build https://call-your-mp.surge.sh"
   }
 }
