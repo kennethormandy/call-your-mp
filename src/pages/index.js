@@ -104,8 +104,9 @@ class Index extends React.Component {
         <p className="h3 muted mt0 max-width-2">{ data.description }</p>
         </header>
 
+        <div className="clearfix">
         <form className="flex flex-wrap mxn1">
-          <label className="px1 col-12 md-col-6">
+          <label className="flex-auto px1 col-12 md-col-6">
             <span className="label">Your Name</span>
             <input
               className="input"
@@ -113,7 +114,7 @@ class Index extends React.Component {
               onChange={this.handleChangeName}
               spellCheck={false} />
           </label>
-          <div className="px1 col-12 md-col-6">
+          <div className="flex-auto px1 col-12 md-col-6">
             <div className="mb2 border-bottom">
               <span className="label">Your Postal Code</span>
               <input
@@ -131,6 +132,7 @@ class Index extends React.Component {
             </div>
           </div>
         </form>
+        </div>
 
         <section className="border p1 sm-p2 md-p3 my3 lg-mxn3">
           <header>
