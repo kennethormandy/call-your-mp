@@ -24,6 +24,7 @@ class Index extends React.Component {
     this.handleChangePostalCode = this.handleChangePostalCode.bind(this)
     this.handleAskForLocation = this.handleAskForLocation.bind(this)
     this.handleAskForPostalCode = _throttle(this.handleAskForPostalCode.bind(this), 1000)
+    this.handleLocationNotAvailable = this.handleLocationNotAvailable.bind(this)
   }
 
   componentDidMount () {
@@ -44,6 +45,15 @@ class Index extends React.Component {
       })
   }
 
+  handleLocationNotAvailable (err) {
+    const self = this
+
+    self.setState({
+      locRequested: 'error',
+      showPostalCodeField: true
+    })
+  }
+
   handleAskForPostalCode (e) {
     e.preventDefault()
     console.log('postal code')
@@ -58,10 +68,17 @@ class Index extends React.Component {
 
     self.setState({ locRequested: 'requesting' })
 
+    // Assume location isn’t available after 5s
+    setTimeout(function () {
+      self.handleLocationNotAvailable()
+    }, 5000)
+
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
         let lat = position.coords.latitude.toFixed(3)
         let lon = position.coords.longitude.toFixed(3)
+
+        console.log('req 2')
 
         self.setState({
           latitude: lat,
@@ -73,14 +90,15 @@ class Index extends React.Component {
           .then(function(response) {
             return response.json()
           }).then(function (json) {
-            console.log('parsed json', json)
             self.setState({ repData: json.objects[0] })
           }).catch(function (err) {
             console.warn(err)
+            self.handleLocationNotAvailable(err)
           })
       })
     } else {
       // Location is not available
+      self.handleLocationNotAvailable()
     }
   }
 
@@ -126,6 +144,8 @@ class Index extends React.Component {
     // Could be better obviously…
     if (state.locRequested === 'requesting') {
       buttonText = 'Finding…'
+    } else if (state.locRequested === 'error') {
+      buttonText = 'Unavailable'
     } else if (state.locRequested === true) {
       buttonText = 'Update location'
     }
