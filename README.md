@@ -1,6 +1,10 @@
-# Call Your MP
+# [Call Your MP](https://call-your-mp.surge.sh)
 
-If you have any questions about the website, feel free to [open an issue](/issues).
+Prefill Canadian MP details in your phone call scripts and emails.
+
+[![](https://cloud.githubusercontent.com/assets/1581276/22622690/882a39fe-eaf6-11e6-814a-c97a654ca3d5.gif)](https://call-your-mp.surge.sh)
+
+If you have any questions about the website, feel free to [open an issue](https://github.com/kennethormandy/call-your-mp/issues).
 
 ## MP letters
 
