@@ -94,7 +94,7 @@ class Index extends React.Component {
 
     const self = this
     const state = self.state
-    const url = 'http://represent.opennorth.ca/postcodes'
+    const url = 'https://represent.opennorth.ca/postcodes'
     let postalCode = e.target.value.split(' ').join('').toUpperCase()
     console.log(postalCode)
     // const postalCode = state.yourPostalCode.split(' ').join('')
@@ -177,7 +177,7 @@ class Index extends React.Component {
                   spellCheck={false} />
               </form>
               <div className="h6 mt2 muted">
-                <p className="m0">Please note postal Codes are not a completely accurate method of finding your <Abbr>MP</Abbr>. This site does not track, store, or use your location data for any purpose other than looking up your <Abbr>MP</Abbr> via the <a href="http://represent.opennorth.ca/">Represent Civic Information <Abbr>API</Abbr></a>.</p>
+                <p className="m0">Please note postal Codes are not a completely accurate method of finding your <Abbr>MP</Abbr>. This site does not track, store, or use your location data for any purpose other than looking up your <Abbr>MP</Abbr> via the <a href="https://represent.opennorth.ca/">Represent Civic Information <Abbr>API</Abbr></a>.</p>
               </div>
               </aside>
             </div>
