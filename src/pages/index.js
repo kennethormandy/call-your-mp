@@ -153,18 +153,20 @@ class Index extends React.Component {
           <div className="flex-auto px1 col-12 md-col-6">
             <div>
               <span className="label">Find Your <Abbr>MP</Abbr></span>
-              <div style={{ height: '2.5rem' }} className="flex">
-              <form>
+              <div className="flex flex-wrap">
+              <div className="col-12 sm-col-6" style={{ minHeight: '2.5rem' }}>
               <button
                 style={{ height: '100%' }}
-                className="btn btn-primary flex-auto"
+                className="btn btn-primary col-12"
                 onClick={this.handleAskForLocation}
                 disabled={ state.locRequested === 'requesting' }>{ buttonText }</button>
-              </form>
+              </div>
+              <div className="col-12 sm-col-6" style={{ minHeight: '2.5rem' }}>
               <button
                 style={{ height: '100%' }}
                 onClick={this.handleAskForPostalCode}
-                className="btn border col-6"><span className="h6 muted border-bottom">{ state.showPostalCodeField ? 'Close' : 'Use your postal code' }</span></button>
+                className="btn border col-12"><span className="h6 muted border-bottom">{ state.showPostalCodeField ? 'Close' : 'Use your postal code' }</span></button>
+              </div>
               </div>
               <aside className={this.state.showPostalCodeField ? '' : 'hide'}>
               <form className="my2" action="" onSubmit={(e) => { this.handleChangePostalCode }}>
