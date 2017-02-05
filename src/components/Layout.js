@@ -34,7 +34,7 @@ class Layout extends React.Component {
         <Wrapper>
           { self.renderChildren(self.props) }
         </Wrapper>
-        <div className="bg-primary white">
+        <div className="bg-primary mt4 white">
           <Wrapper>
             <Footer {...self.props} />
           </Wrapper>

@@ -1,17 +1,15 @@
 import React from 'react'
+import Abbr from './Abbr'
 
 export default function Footer (props) {
   return (
     <footer>
-      <h2>Footer</h2>
+      <h2>Call Your <Abbr>MP</Abbr></h2>
       <ul>
-        <li>The code for <a href={ props.data.repository }>this website is Open Source</a>, so you could help improve my script, translate it into French, open an issue about a bug you found, etc. Thanks!</li>
-        <li>Embed this form into your site or article:</li>
+        <li>Letter by <a href="https://twitter.com/skeskali">@skeskali</a> and <a href="https://twitter.com/freyburg">@freyburg</a></li>
+        <li>Better integration with<a href="https://github.com/skeskali/MPFormLetters">skeskali/MPFormLetters</a> coming soon</li>
+        <li>The code for <a href={ props.data.repository }>this website is open source</a>, so you could help translate the <Abbr title="User Interface">UI</Abbr> into French, open an issue about a bug you found, etc. Thanks!</li>
       </ul>
-      <div>
-        <h2>Credits</h2>
-      </div>
-
     </footer>
   )
 }
