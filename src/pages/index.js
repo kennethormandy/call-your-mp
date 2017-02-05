@@ -3,12 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import _throttle from 'lodash.throttle'
 import _filter from 'lodash.filter'
 import 'whatwg-fetch'
-
-function Abbr (props) {
-  return (
-    <abbr className="caps" {...props}>{props.children}</abbr>
-  )
-}
+import Abbr from '../components/Abbr'
 
 class Index extends React.Component {
   constructor (props) {
