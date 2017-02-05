@@ -1,6 +1,10 @@
 # Call Your MP
 
-If you have any questions about the website, feel free to contact [Kenneth Ormandy](http://kennethormandy.com) at [hello@kennethormandy.com](mailto:hello@kennethormandy.com).
+If you have any questions about the website, feel free to [open an issue](/issues).
+
+## MP letters
+
+The content for this letter is pulled from [skeskali/MPFormLetters](https://github.com/skeskali/MPFormLetters). Thanks [@skeskali](https://twitter.com/skeskali) and [@freyburg](https://twitter.com/freyburg)! Future iterations of this site should support other letters.
 
 ## Getting started
 
