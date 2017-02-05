@@ -157,3 +157,9 @@ a {
 .fill-primary { fill: $button-background-color; }
 .fill-white { fill: $white; }
 .fill-black { fill: $black; }
+
+.markdown-content {
+  p {
+    margin-bottom: 0;
+  }
+}

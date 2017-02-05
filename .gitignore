@@ -23,6 +23,7 @@ www/
 build/*
 
 # Restore static directories
+!build/content/**/*.md
 !build/media/
 build/media/**/*.html
 build/media/**/.DS_Store

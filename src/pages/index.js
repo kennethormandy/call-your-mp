@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
 import _throttle from 'lodash.throttle'
 import _filter from 'lodash.filter'
 import 'whatwg-fetch'
@@ -19,12 +20,39 @@ class Index extends React.Component {
       latitude: false,
       longitude: false,
       locRequested: false,
-      repData: props.repData
+      repData: props.repData,
+      yourLetter: 'Loading…',
+      showPostalCodeField: false
     }
 
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangePostalCode = this.handleChangePostalCode.bind(this)
     this.handleAskForLocation = this.handleAskForLocation.bind(this)
+    this.handleAskForPostalCode = _throttle(this.handleAskForPostalCode.bind(this), 1000)
+  }
+
+  componentDidMount () {
+    const self = this
+
+    fetch('https://rawgit.com/skeskali/MPFormLetters/master/Response%20to%20Muslim%20Ban.md')
+      .then(function(response) {
+        return response.text()
+      }).then(function (text) {
+        let formatted1 = text.split(':\n\n')
+        if (typeof formatted1.length !== 'undefined' && formatted1.length >= 2) {
+          return self.setState({ yourLetter: formatted1[1].split('\n\nSincerely,')[0] })
+        } else {
+          return self.setState({ yourLetter: text })
+        }
+      }).catch(function (err) {
+        console.warn(err)
+      })
+  }
+
+  handleAskForPostalCode (e) {
+    e.preventDefault()
+    console.log('postal code')
+    this.setState({ showPostalCodeField: !this.state.showPostalCodeField })
   }
 
   handleAskForLocation (e) {
@@ -67,16 +95,29 @@ class Index extends React.Component {
   }
 
   handleChangePostalCode (e) {
-    // const url = 'http://www.lop.parl.gc.ca/ParlInfo/Compilations/HouseOfCommons/MemberByPostalCode.aspx?Menu=HOC&'
-    //
-    // fetch(`${url}&PostalCode=A1A1A1`)
-    //   .then(function(response) {
-    //     return response.text()
-    //   }).then(function(body) {
-    //     console.log(body)
-    //   }, function(error) {
-    //     console.warn(err)
-    //   })
+    e.preventDefault()
+
+    const self = this
+    const state = self.state
+    const url = 'http://represent.opennorth.ca/postcodes'
+    let postalCode = e.target.value.split(' ').join('').toUpperCase()
+    console.log(postalCode)
+    // const postalCode = state.yourPostalCode.split(' ').join('')
+
+    if (postalCode && postalCode.length === 6) {
+      fetch(`${url}/${postalCode}/`)
+        .then(function(response) {
+          return response.json()
+        }).then(function (json) {
+          console.log('parsed json', json)
+          const filtered = _filter(json.representatives_centroid, { 'elected_office': 'MP' })
+          console.log(filtered)
+
+          self.setState({ repData: filtered[0] })
+        }).catch(function (err) {
+          console.warn(err)
+        })
+    }
   }
 
   render (props) {
@@ -89,7 +130,7 @@ class Index extends React.Component {
 
     // Could be better obviously…
     if (state.locRequested === 'requesting') {
-      buttonText = 'Getting location…'
+      buttonText = 'Finding…'
     } else if (state.locRequested === true) {
       buttonText = 'Update location'
     }
@@ -105,7 +146,7 @@ class Index extends React.Component {
         </header>
 
         <div className="clearfix">
-        <form className="flex flex-wrap mxn1">
+        <div className="flex flex-wrap mxn1">
           <label className="flex-auto px1 col-12 md-col-6">
             <span className="label">Your Name</span>
             <input
@@ -115,23 +156,38 @@ class Index extends React.Component {
               spellCheck={false} />
           </label>
           <div className="flex-auto px1 col-12 md-col-6">
-            <div className="mb2 border-bottom">
-              <span className="label">Your Postal Code</span>
-              <input
-                className="input"
-                placeholder="Ex. A1A 1A1"
-                onChange={this.handleChangePostalCode}
-                spellCheck={false} />
-            </div>
             <div>
-              <button className="btn btn-primary" onClick={this.handleAskForLocation} disabled={ state.locRequested === 'requesting' }>{ buttonText }</button>
-              <aside className="h5 mt2 muted">
-              <p className="m0">Postal Codes are not a completely accurate method of finding your <Abbr>MP</Abbr>.</p>
-              <p className="m0" style={{ textIndent: '1em' }}>This site does not track, store, or use your location data for any purpose other than looking up your <Abbr>MP</Abbr> via the <a href="http://represent.opennorth.ca/">Represent Civic Information <Abbr>API</Abbr></a>.</p>
+              <span className="label">Find Your <Abbr>MP</Abbr></span>
+              <div style={{ height: '2.5rem' }} className="flex">
+              <form>
+              <button
+                style={{ height: '100%' }}
+                className="btn btn-primary flex-auto"
+                onClick={this.handleAskForLocation}
+                disabled={ state.locRequested === 'requesting' }>{ buttonText }</button>
+              </form>
+              <button
+                style={{ height: '100%' }}
+                onClick={this.handleAskForPostalCode}
+                className="btn border col-6"><span className="h6 muted border-bottom">{ state.showPostalCodeField ? 'Close' : 'Use your postal code' }</span></button>
+              </div>
+              <aside className={this.state.showPostalCodeField ? '' : 'hide'}>
+              <form className="my2" action="" onSubmit={(e) => { this.handleChangePostalCode }}>
+                <span className="label">Your Postal Code</span>
+                <input
+                  className="input tnum"
+                  placeholder="Ex. A1A 1A1"
+                  onChange={this.handleChangePostalCode}
+                  disabled={ state.locRequested === 'requesting' }
+                  spellCheck={false} />
+              </form>
+              <div className="h6 mt2 muted">
+                <p className="m0">Please note postal Codes are not a completely accurate method of finding your <Abbr>MP</Abbr>. This site does not track, store, or use your location data for any purpose other than looking up your <Abbr>MP</Abbr> via the <a href="http://represent.opennorth.ca/">Represent Civic Information <Abbr>API</Abbr></a>.</p>
+              </div>
               </aside>
             </div>
           </div>
-        </form>
+        </div>
         </div>
 
         <section className="border p1 sm-p2 md-p3 my3 lg-mxn3">
@@ -139,21 +195,27 @@ class Index extends React.Component {
             <h3 className="normal h5 m0 muted">The Honourable { state.repData.name }</h3>
             <h2 className="lnum tnum zero mt0"><a href={`tel:${repPhoneNumber}`}>{ repPhoneNumber }</a></h2>
           </header>
-          <p className="mt0">Hello, my name is { state.yourName } and I live in the the { state.repData.district_name } electoral district. I want to let my <Abbr title="Member of Parliament">MP</Abbr> The Honourable { state.repData.name } know how important it is to me that we welcome those fleeing violence and deportation from Trump’s America. Today, if an asylum seeker currently in the <Abbr>US</Abbr> showed up at the Canadian border trying to escape deportation to an unsafe country, Canada would turn them away.</p>
-          <p>I support calling on Prime Minister Trudeau and Minister Hussen to immediately rescind the <em className="italic">Safe Third Country Agreement</em> so refugees who originally arrived in the United States can seek refugee status in Canada. Thank you for your time.</p>
+          <div className="markdown-content">
+            <p>Hello, my name is <strong>{ state.yourName }</strong> and I’m calling to speak with <strong>The Honourable { state.repData.name }</strong></p>
+            <ReactMarkdown source={ state.yourLetter } />
+            <p>Thanks for your time.</p>
+          </div>
         </section>
 
-        <p>Calling or leaving a message for your <Abbr>MP</Abbr> is likely the most effective way to deliver this message based on what I’ve read. You can additionally send it to their email address at:</p>
+        <p>Calling your <Abbr>MP</Abbr> is likely the most effective way to deliver this message. You can also send it to their email address at:</p>
 
-        <a href={`mailto:${state.repData.email}`}>{state.repData.email}</a>
+        <a href={`mailto:${state.repData.email}?body=${state.yourLetter}`}>{state.repData.email}</a>
 
+        {/* This could include other call to action links in the Markdown frontmatter */}
+        {/*
         <footer className="clearfix mt4 pt2 border-top">
           <p>You can also:</p>
           <ul>
             <li>Email this message you your <Abbr>MP</Abbr></li>
-            <li>Sign the petition</li>
+            <li><a href="https://you.leadnow.ca/petitions/tell-trudeau-welcome-those-fleeing-violence-and-deportation-under-trump">Sign the petition</a></li>
           </ul>
         </footer>
+        */}
 
       </div>
     )
@@ -162,7 +224,7 @@ class Index extends React.Component {
 
 Index.defaultProps = {
   yourName: '[your name]',
-  yourPostalCode: false,
+  yourPostalCode: '',
   repData: {
     district_name: '[your district name]',
     name: '[your MP’s name]',
